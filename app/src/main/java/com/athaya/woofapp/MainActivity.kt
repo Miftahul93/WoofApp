@@ -20,6 +20,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,8 +37,7 @@ class MainActivity : ComponentActivity() {
             WoofAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     WoofApp()
                 }
@@ -52,7 +53,11 @@ class MainActivity : ComponentActivity() {
 fun WoofApp() {
     LazyColumn {
         items(dogs) {
-            DogItem(dog = it)
+            DogItem(
+                dog = it,
+                modifier = Modifier
+                    .padding(dimensionResource(R.dimen.padding_small))
+            )
         }
     }
 }
@@ -62,7 +67,7 @@ fun DogItem(
     dog: Dog,
     modifier: Modifier = Modifier
 ) {
-    Card (modifier = Modifier){
+    Card(modifier = Modifier) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -83,9 +88,11 @@ fun DogIcon(
     Image(
         modifier = modifier
             .size(dimensionResource(R.dimen.image_size))
-            .padding(dimensionResource(id = R.dimen.padding_small)),
-        painter = painterResource(id = dogIcon),
-        contentDescription = null,
+            .padding(dimensionResource(R.dimen.padding_small))
+            .clip(MaterialTheme.shapes.small),
+        contentScale = ContentScale.Crop,
+        painter = painterResource(dogIcon),
+        contentDescription = null
     )
 }
 
@@ -107,7 +114,7 @@ fun DogInformation(
 @Preview(showBackground = true)
 @Composable
 fun WoofPreview() {
-    WoofAppTheme(darkTheme = false) {
+    WoofAppTheme(darkTheme = true) {
         WoofApp()
     }
 }
