@@ -78,18 +78,21 @@ fun WoofApp() {
 fun WoofTopAppBar(modifier: Modifier = Modifier) {
     CenterAlignedTopAppBar(
         title = {
-            Row (
+            Row(
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Image(
                     modifier = Modifier
                         .size(dimensionResource(id = R.dimen.image_size))
                         .padding(dimensionResource(id = R.dimen.padding_small)),
                     painter = painterResource(id = R.drawable.ic_woof_logo),
-                    contentDescription = null)
+                    contentDescription = null
+                )
 
-                Text(text = stringResource(id = R.string.app_name),
-                    style = MaterialTheme.typography.displayLarge)
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    style = MaterialTheme.typography.displayLarge
+                )
             }
         },
         modifier = modifier
@@ -101,7 +104,9 @@ fun DogItem(
     dog: Dog,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = Modifier) {
+    Card(
+        modifier = modifier
+    ) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -110,7 +115,6 @@ fun DogItem(
             DogIcon(dog.imageResourceId)
             DogInformation(dog.name, dog.age)
         }
-
     }
 }
 
