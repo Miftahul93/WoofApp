@@ -119,18 +119,30 @@ fun DogItem(
     Card(
         modifier = modifier
     ) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.padding_small))
-        ) {
-            DogIcon(dog.imageResourceId)
-            DogInformation(dog.name, dog.age)
-            Spacer(modifier = Modifier.weight(1f))
-            DogItemButton(
-                expanded = expanded,
-                onClick = {
-                }
+        Column {
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_small))
+            ) {
+                DogIcon(dog.imageResourceId)
+                DogInformation(dog.name, dog.age)
+                Spacer(modifier = Modifier.weight(1f))
+                DogItemButton(
+                    expanded = expanded,
+                    onClick = {
+                    }
+                )
+            }
+
+            DogHobby(
+                dogHobby = dog.hobbies,
+                modifier = Modifier.padding(
+                    start = dimensionResource(id = R.dimen.padding_medium),
+                    top = dimensionResource(id = R.dimen.padding_small),
+                    end = dimensionResource(id = R.dimen.padding_medium),
+                    bottom = dimensionResource(id = R.dimen.padding_medium)
+                )
             )
         }
     }
@@ -184,6 +196,25 @@ fun DogInformation(
         )
         Text(
             text = stringResource(id = R.string.years_old, dogAge),
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+
+@Composable
+fun DogHobby(
+    @StringRes dogHobby: Int,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(R.string.about),
+            style = MaterialTheme.typography.labelSmall
+        )
+        Text(
+            text = stringResource(id = dogHobby),
             style = MaterialTheme.typography.bodyLarge
         )
     }
